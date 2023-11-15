@@ -1,10 +1,66 @@
 
-<h1>Eventos de componets</h1>
+<h2>Eventos </h2>
+<hr>
 
+<div class="form-inline">
 
-
-<div *ngFor="let evento of eventos">
-  <p><b>Tema: </b>{{evento.tema}}</p>
-  <p><b>Local: </b>{{evento.local}}</p>
-  <hr>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="listFilter">
+    <label for="floatingInput">Filtrar: Tema, Local</label>
+  </div>
 </div>
+
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>
+        <button class="btn btn-outline-light btn-sm"
+         type="button"
+         (click)="showImagem()"
+        >
+          {{!showImage ? 'Exibir' : 'Ocultar'}}
+        </button>
+      </th>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="eventos && eventos.length">
+    <tr *ngFor="let evento of eventosFiltered">
+      <td>
+        <img [collapse]="!showImage"
+          [isAnimated]="true"
+          src="/assets/{{evento.imagemURL}}"
+          alt="Imagens do eventos"
+          [style.width.px]="widthImg"
+          [style.margin.px]="marginImg"
+        >
+      </td>
+      <td class="align-middle">{{evento.eventoId}}</td>
+      <td class="align-middle">{{evento.tema}}</td>
+      <td class="align-middle" >{{evento.local}}</td>
+      <td class="align-middle" >{{evento.dataEvento}}</td>
+      <td class="align-middle" >{{evento.qtdPessoas}}</td>
+      <td class="align-middle" >{{evento.lote}}</td>
+      <td>
+        <i class="bi bi-pencil-square" style="font-size: 2rem; color: cornflowerblue;"></i>
+        <i class="bi bi-trash3 ms-3" style="font-size: 2rem; color:rgb(225, 37, 4);"></i>
+
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!eventos.length">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado!</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
